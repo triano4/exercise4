@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Page Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" media="screen" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+    <script type="text/javascript" src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+</head>
+
+<body>
+
+    <table id="myTable">
+        <thead>
+            <tr>
+                <td>Name</td>
+                <td>Rotation Period</td>
+                <td>Orbital Period</td>
+                <td>Diameter</td>
+                <td>Climate</td>
+                <td>Gravity</td>
+                <td>Terrain</td>
+                <td>Surface Water</td>
+                <td>Population</td>
+                <td>Residents</td>
+            </tr>
+        </thead>
+        <tbody>
+        </tbody>
+
+    </table>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            buatTable();
+        });
+        function buatTable() {
+            var sumbersari = "https://swapi.co/api/planets/?format=json";
+            $.ajax({
+                url: sumbersari,
+                data: "",
+                dataType: "json",
+                success: function (atang) {
+                    var planets = atang.results;
+                    var isitable = "";
+                    for (let i = 0; i < planets.length; i++) {
+                        isitable = `${isitable} <tr>
+                        <td>${planets[i].name}</td>
+                        <td>${planets[i].rotation_period}</td>
+                        <td>${planets[i].orbital_period}</td>
+                        <td>${planets[i].diameter}</td>
+                        <td>${planets[i].climate}</td>
+                        <td>${planets[i].gravity}</td>
+                        <td>${planets[i].terrain}</td>
+                        <td>${planets[i].surface_water}</td>
+                        <td>${planets[i].population}</td>
+                        <td>${planets[i].residents}</td>
+                        </tr>`;
+                    }
+                    $("#myTable tbody").html(isitable);
+                    $('#myTable').DataTable();
+                },
+            })
+        }
+    </script>
+</body>
+
+</html>
